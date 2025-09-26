@@ -29,3 +29,5 @@ curl -d '{"message":"this is my first webhook"}' -H "Content-Type: application/j
 
 # Verify that an Argo workflow was triggered and show 'Succeeded' status.
 kubectl -n argo get workflows | grep "webhook"
+
+#details as https://argoproj.github.io/
