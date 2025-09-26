@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: argo-events-webhook-sa
-  namespace: argo-events
+  namespace: argo
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -77,13 +77,13 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: argo-events-webhook-sa
-  namespace: argo-events
+  namespace: argo
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: events-webhook
-  namespace: argo-events
+  namespace: argo
 spec:
   ports:
   - port: 443
@@ -95,7 +95,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: events-webhook
-  namespace: argo-events
+  namespace: argo
 spec:
   replicas: 1
   selector:
@@ -117,6 +117,6 @@ spec:
         - name: PORT
           value: "443"
         image: quay.io/argoproj/argo-events:v1.9.6
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: webhook
       serviceAccountName: argo-events-webhook-sa
